@@ -27,6 +27,7 @@
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.compatVersion}</artifactId>
         </dependency>
+
     </dependencies>
 
 </project>
