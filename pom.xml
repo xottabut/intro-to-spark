@@ -11,12 +11,14 @@
     <modules>
         <module>spark-map</module>
         <module>simple-map</module>
+        <module>common</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <scala.compatVersion>2.12</scala.compatVersion>
+        <osmosis.version>0.48.3</osmosis.version>
     </properties>
 
     <build>
@@ -39,9 +41,22 @@
             </dependency>
 
             <dependency>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest_${scala.compatVersion}</artifactId>
+                <version>3.2.9</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.apache.spark</groupId>
                 <artifactId>spark-core_${scala.compatVersion}</artifactId>
                 <version>3.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openstreetmap.osmosis</groupId>
+                <artifactId>osmosis-pbf2</artifactId>
+                <version>${osmosis.version}</version>
             </dependency>
 
         </dependencies>
