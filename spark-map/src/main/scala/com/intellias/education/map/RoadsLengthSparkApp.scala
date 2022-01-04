@@ -7,8 +7,8 @@ object RoadsLengthSparkApp {
   def main(args: Array[String]): Unit = {
     val timeTracker = TimeTracker()
 
-    if (args.length != 1) {
-      throw new IllegalArgumentException("Exactly one argument expected: path to the OSM pbf file!")
+    if (args.length < 1) {
+      throw new IllegalArgumentException("At least path to the OSM pbf file is expected as an input argument!")
     }
     val osmPbfFile = args(0)
     val clusterMode = args.length == 2 && args(0) == "--clusterMode"
