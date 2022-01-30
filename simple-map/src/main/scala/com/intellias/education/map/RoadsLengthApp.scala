@@ -24,6 +24,6 @@ object RoadsLengthApp {
     val waysReader = new GraphOnlyReader(osmPbfFile, 1)
     val ways = waysReader.read
     val roadNetwork = new RoadNetworkOperations(ways)
-    roadNetwork.totalLength
+    roadNetwork.totalLength / 1000
   }
 }
