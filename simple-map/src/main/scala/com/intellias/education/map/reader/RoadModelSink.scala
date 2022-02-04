@@ -15,7 +15,7 @@ class RoadModelSink extends Sink {
 
   private val isCompleted = new AtomicBoolean(false)
 
-  private val nodesBufferById: collection.mutable.Map[Long, Node] = new mutable.HashMap[Long, Node]
+  private val nodesCacheById: collection.mutable.Map[Long, Node] = new mutable.HashMap[Long, Node]
   private val waysBuffer: collection.mutable.Buffer[Way] = new ListBuffer[Way]
 
   def ways: Seq[Way] = if (isCompleted.get()) waysBuffer.toList else throw new IllegalStateException
@@ -27,14 +27,14 @@ class RoadModelSink extends Sink {
     entity.getType match {
       case EntityType.Node =>
         val osmNode = entity.asInstanceOf[OsmNode]
-        nodesBufferById += entity.getId -> Node(entity.getId, osmNode.getLongitude, osmNode.getLatitude)
+        nodesCacheById += entity.getId -> Node(entity.getId, osmNode.getLongitude, osmNode.getLatitude)
 
       case EntityType.Way =>
         val osmWay = entity.asInstanceOf[OsmWay]
         val tags = entity.getTags
         if (tags.asScala.exists(_.getKey == "highway")) {
           val nodes = osmWay.getWayNodes.asScala
-            .map(n => nodesBufferById(n.getNodeId))
+            .map(n => nodesCacheById(n.getNodeId))
           waysBuffer += Way(osmWay.getId, nodes)
         }
       case _ =>
